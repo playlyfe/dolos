@@ -1,0 +1,26 @@
+{
+  "name": "dolos",
+  "version": "0.0.1",
+  "description": "A test data generator for creating objects",
+  "main": "lib/dolos.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "./node_modules/.bin/coffeelint src/ && ./node_modules/.bin/coffee -o lib -cb src/dolos.coffee"
+  },
+  "keywords": [
+    "dolos",
+    "fake",
+    "factory"
+  ],
+  "author": "Johny Jose",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "Faker": "~0.7.0",
+    "node-uuid": "~1.4.1"
+  },
+  "devDependencies": {
+    "coffee-script": "~1.7.1",
+    "coffeelint": "~1.1.0"
+  }
+}
