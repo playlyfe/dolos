@@ -127,6 +127,16 @@ class Dolos
           generator.call(@, index)
         else
           index
+    password: ->
+      specials = '!@#$%^&*()_+{}:"<>?\|[];\',./`~'
+      lowercase = 'abcdefghijklmnopqrstuvwxyz'
+      uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+      numbers = '0123456789'
+      all = specials + lowercase + uppercase + numbers
+
+      password = _.sample(specials) + _.sample(lowercase) + _.sample(uppercase) + _.sample(numbers) + _.sample(all, 4)
+      _.shuffle(password)
+
     UUID: {
       v1: (generator) ->
         ->
