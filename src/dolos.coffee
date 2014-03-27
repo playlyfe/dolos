@@ -82,8 +82,11 @@ class Dolos
 
     object
 
-  @create: (name, attributes) ->
-    definition = @_definitions[name]
+  @create: (name, attributes, options) ->
+    parts = name.split('-').reverse()
+    type = parts[0]
+
+    definition = @_definitions[type]
     if not definition.store?
       throw new Error('No persistence store registered')
     # Build the object
@@ -97,15 +100,15 @@ class Dolos
     if _.isString(definition.store)
       if not (store = Dolos._persistence_strategies[definition.store])?
         throw new Error("Persistence store #{definition.store} not found")
-      store(object)
+      result = store(object, options)
     else if _.isFunction(definition.store)
-      definition.store(object)
+      result = definition.store(object, options)
 
     # Call create after hook
     if definition.hooks?.after?
-      definition.hooks.after(object)
+      result = result.then (object) -> definition.hooks.after(object)
 
-    object
+    result
 
   @store: (name, args...) ->
     Dolos._persistence_strategies[name](args...)
