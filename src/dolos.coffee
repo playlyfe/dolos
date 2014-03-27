@@ -51,7 +51,7 @@ class Dolos
         if _.isFunction(value)
           object[key] = value.call(object, type)
         else
-          object[key] = value
+          object[key] = _(value).cloneDeep()
 
     # Check for traits and apply them in reverse
     for trait in traits
@@ -66,7 +66,7 @@ class Dolos
           if _.isFunction(value)
             object[key] = value.call(object, type)
           else
-            object[key] = value
+            object[key] = _(value).cloneDeep()
 
     # Apply attribute overrides
     for key, value of attributes
