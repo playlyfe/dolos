@@ -30,7 +30,7 @@ class Dolos
   @define: (name, config) ->
     @_definitions[name] = config
 
-  @build: (name, attributes) ->
+  @build: (name, attributes, args...) ->
 
     parts = name.split('-').reverse()
     type = parts[0]
@@ -43,7 +43,7 @@ class Dolos
       throw new Error("Build configuration missing for #{type}")
 
     if _.isFunction(definition.build)
-      object = definition.build.call(null)
+      object = definition.build.apply(null, args)
 
     else if _.isObject(definition.build)
       object = {}
@@ -59,7 +59,7 @@ class Dolos
         throw new Error("Trait #{trait} not found on #{type}")
 
       if _.isFunction(trait_definition)
-        trait_definition.call(object)
+        trait_definition.apply(null, [object].concat(args))
 
       else if _.isObject(trait_definition)
         for key, value of trait_definition
@@ -82,7 +82,7 @@ class Dolos
 
     object
 
-  @create: (name, attributes, options) ->
+  @create: (name, attributes, options, args...) ->
     parts = name.split('-').reverse()
     type = parts[0]
 
@@ -90,7 +90,7 @@ class Dolos
     if not definition.store?
       throw new Error('No persistence store registered')
     # Build the object
-    object = Dolos.build(name, attributes)
+    object = Dolos.build(name, attributes, args...)
     # Call create before hook
 
     if definition.hooks?.before?
