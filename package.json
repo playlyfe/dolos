@@ -1,6 +1,6 @@
 {
   "name": "dolos",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A test data generator for creating objects",
   "main": "lib/dolos.js",
   "scripts": {

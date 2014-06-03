@@ -31,7 +31,6 @@ class Dolos
     @_definitions[name] = config
 
   @build: (name, attributes, args...) ->
-
     parts = name.split('-').reverse()
     type = parts[0]
     traits = parts.slice(1)
@@ -134,8 +133,9 @@ class Dolos
       numbers = '0123456789'
       all = specials + lowercase + uppercase + numbers
 
-      password = _.sample(specials) + _.sample(lowercase) + _.sample(uppercase) + _.sample(numbers) + _.sample(all, 4)
-      _.shuffle(password)
+      password = _.sample(specials) + _.sample(lowercase) + _.sample(uppercase)\
+      + _.sample(numbers) + _.sample(all, 4)
+      _.shuffle(password).join('')
 
     UUID: {
       v1: (generator) ->
